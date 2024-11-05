@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package futebol;
+
+// Mensagem que representa um jogador
+message Jogador {
+    string id = 1;
+    string nome = 2;
+    string posicao = 3;
+    int32 idade = 4;
+}
+
+// Mensagem que representa um time
+message Time {
+    string id = 1;
+    string nome = 2;
+    repeated string jogadores_ids = 3; // IDs dos jogadores vinculados
+}
+
+// Mensagem para adicionar um jogador
+message AdicionarJogadorRequest {
+    Jogador jogador = 1;
+}
+
+// Mensagem para listar todos os jogadores
+message ListarJogadoresRequest {}
+
+// Mensagem que contém a lista de jogadores
+message ListarJogadoresResponse {
+    repeated Jogador jogadores = 1;
+}
+
+// Mensagem para adicionar um time
+message AdicionarTimeRequest {
+    Time time = 1;
+}
+
+// Mensagem que contém o time adicionado
+message AdicionarTimeResponse {
+    Time time = 1;
+}
+
+// Mensagem para vincular jogadores a um time
+message VincularJogadorRequest {
+    string time_id = 1;
+    repeated string jogadores_ids = 2; // Certifique-se de que é um array
+}
+
+// Mensagem de resposta para a vinculação
+message VincularJogadorResponse {
+    string message = 1;    // Mensagem de sucesso
+}
+
+// Mensagem para listar todos os times
+message ListarTimesRequest {}
+
+// Mensagem que contém a lista de times
+message ListarTimesResponse {
+    repeated Time times = 1;
+}
+
+// Serviço que define as operações do time de futebol
+service TimeFutebol {
+    rpc AdicionarJogador(AdicionarJogadorRequest) returns (Jogador);
+    rpc ListarJogadores(ListarJogadoresRequest) returns (ListarJogadoresResponse);
+    rpc AdicionarTime(AdicionarTimeRequest) returns (AdicionarTimeResponse);
+    rpc VincularJogador(VincularJogadorRequest) returns (VincularJogadorResponse);
+    rpc ListarTimes(ListarTimesRequest) returns (ListarTimesResponse);
+}

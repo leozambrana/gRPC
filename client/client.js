@@ -25,6 +25,7 @@ function menu() {
     console.log('3: Adicionar Time');
     console.log('4: Vincular Jogadores a Time');
     console.log('5: Listar Times');
+    console.log('6: Deletar Time');
     console.log('0: Sair');
 }
 
@@ -105,7 +106,18 @@ function handleInput(option) {
                 menu();
             });
             break;
-
+        case '6':
+            rl.question('Digite o ID do time: ', (time_id) => {
+                client.DeletarTime({ time_id }, (error, response) => {
+                    if (error) {
+                        console.error('Error deleting team:', error);
+                    } else {
+                        console.log('Team deleted:', response);
+                    }
+                    menu();
+                });
+            });
+            break;
         case '0':
             rl.close();
             break;

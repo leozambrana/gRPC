@@ -51,6 +51,14 @@ message VincularJogadorResponse {
     string message = 1;    // Mensagem de sucesso
 }
 
+message DeletarTimeRequest {
+    string id = 1;  // ID do time a ser deletado
+}
+
+message DeletarTimeResponse {
+    string message = 1;
+}
+
 // Mensagem para listar todos os times
 message ListarTimesRequest {}
 
@@ -66,4 +74,5 @@ service TimeFutebol {
     rpc AdicionarTime(AdicionarTimeRequest) returns (AdicionarTimeResponse);
     rpc VincularJogador(VincularJogadorRequest) returns (VincularJogadorResponse);
     rpc ListarTimes(ListarTimesRequest) returns (ListarTimesResponse);
+    rpc DeletarTime(DeletarTimeRequest) returns (DeletarTimeResponse);
 }

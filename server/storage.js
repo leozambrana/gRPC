@@ -7,6 +7,8 @@ const jogadores = [
 ];
 const times = [
     { id: '1', nome: 'Juventude', jogadores_ids: [] },
+    { id: '2', nome: 'Inter', jogadores_ids: [] },
+    { id: '3', nome: 'Criciuma', jogadores_ids: [] },
 ];
 
 module.exports = {

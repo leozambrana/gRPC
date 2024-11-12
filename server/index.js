@@ -19,6 +19,8 @@ server.addService(futebol.TimeFutebol.service, {
     VincularJogador: times.vincularJogador,
     ListarTimes: times.listarTimes,
     DeletarTime: times.deletarTime,
+    DeletarJogador: jogadores.deletarJogador,
+    AtualizarJogador: jogadores.atualizarJogador,
 });
 
 // Start the server
@@ -28,5 +30,5 @@ server.bindAsync('127.0.0.1:50051', grpc.ServerCredentials.createInsecure(), (er
         return;
     }
     server.start();
-    console.log(`Server is running at http://127.0.0.1:${port}`);
+    console.info(`Server is running at http://127.0.0.1:${port}`);
 });

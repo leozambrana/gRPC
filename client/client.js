@@ -19,29 +19,31 @@ const rl = readline.createInterface({
 
 // Function to display the menu
 function menu() {
-    console.log('Escolha uma opção:');
-    console.log('1: Adicionar Jogador');
-    console.log('2: Listar Jogadores');
-    console.log('3: Adicionar Time');
-    console.log('4: Vincular Jogadores a Time');
-    console.log('5: Listar Times');
-    console.log('6: Deletar Time');
-    console.log('0: Sair');
+    console.info('Escolha uma opção:');
+    console.info('1: Adicionar Jogador');
+    console.info('2: Listar Jogadores');
+    console.info('3: Adicionar Time');
+    console.info('4: Vincular Jogadores a Time');
+    console.info('5: Listar Times');
+    console.info('6: Deletar Time');
+    console.info('7: Deletar Jogador');
+    console.info('8: Atualizar Jogador');
+    console.info('0: Sair');
 }
 
 // Function to handle user input
 function handleInput(option) {
     switch (option) {
         case '1':
-            rl.question('Digite o ID do jogador: ', (id) => {
+            rl.question('Digite o ID do jogador: ', (idJogador) => {
                 rl.question('Digite o nome do jogador: ', (nome) => {
                     rl.question('Digite a posição do jogador: ', (posicao) => {
                         rl.question('Digite a idade do jogador: ', (idade) => {
-                            client.AdicionarJogador({ jogador: { id, nome, posicao, idade: parseInt(idade) } }, (error, response) => {
+                            client.AdicionarJogador({ jogador: { idJogador, nome, posicao, idade: parseInt(idade) } }, (error, response) => {
                                 if (error) {
                                     console.error('Error adding player:', error);
                                 } else {
-                                    console.log('Player added:', response);
+                                    console.info('Player added:', response);
                                 }
                                 menu();
                             });
@@ -56,7 +58,7 @@ function handleInput(option) {
                 if (error) {
                     console.error('Error listing players:', error);
                 } else {
-                    console.log('Players:', response.jogadores);
+                    console.info('Players:', response.jogadores);
                 }
                 menu();
             });
@@ -69,7 +71,7 @@ function handleInput(option) {
                         if (error) {
                             console.error('Error adding team:', error);
                         } else {
-                            console.log('Team added:', response);
+                            console.info('Team added:', response);
                         }
                         menu();
                     });
@@ -79,16 +81,13 @@ function handleInput(option) {
 
         case '4':
             rl.question('Digite o ID do time: ', (time_id) => {
-                rl.question('Digite os IDs dos jogadores (separados por vírgula): ', (jogadores_ids) => {
-                    const ids = jogadores_ids.split(',').map(id => id.trim());
-                    console.log("Time ID:", time_id);
-                    console.log("Jogadores IDs:", ids);
-                    console.log("Enviando dados:", { time_id, jogadores_ids:ids });
-                    client.VincularJogador({ time_id, jogadores_ids:ids }, (error, response) => {
+                rl.question('Digite os IDs dos jogadores (separados por vírgula): ', (id_jogadores) => {
+                    const idJogador = id_jogadores.split(',').map(id_jogador => id_jogador.trim());
+                    client.VincularJogador({ id:time_id, idJogador }, (error, response) => {
                         if (error) {
                             console.error('Error linking players:', error);
                         } else {
-                            console.log('Players linked to team:', response);
+                            console.info('Players linked to team:', response);
                         }
                         menu();
                     });
@@ -101,20 +100,52 @@ function handleInput(option) {
                 if (error) {
                     console.error('Error listing teams:', error);
                 } else {
-                    console.log('Teams:', response.times);
+                    console.info('Teams:', response.times);
                 }
                 menu();
             });
             break;
         case '6':
-            rl.question('Digite o ID do time: ', (time_id) => {
-                client.DeletarTime({ time_id }, (error, response) => {
+            rl.question('Digite o ID do time: ', (id) => {
+                client.DeletarTime({ id }, (error, response) => {
+                    console.info('response',response, error,'error')
                     if (error) {
                         console.error('Error deleting team:', error);
                     } else {
-                        console.log('Team deleted:', response);
+                        console.info('Team deleted:', response);
                     }
                     menu();
+                });
+            });
+            break;
+        case '7':
+            rl.question('Digite o ID do Jogador: ', (idJogador) => {
+                client.DeletarJogador({ idJogador }, (error, response) => {
+                    console.info('response',response, error,'error')
+                    if (error) {
+                        console.error('Error deleting team:', error);
+                    } else {
+                        console.info('Player deleted:', response);
+                    }
+                    menu();
+                });
+            });
+            break;
+        case '8':
+            rl.question('Digite o ID do jogador: ', (idJogador) => {
+                rl.question('Digite o nome do jogador: ', (nome) => {
+                    rl.question('Digite a posição do jogador: ', (posicao) => {
+                        rl.question('Digite a idade do jogador: ', (idade) => {
+                            client.AtualizarJogador({ jogador: { idJogador, nome, posicao, idade: parseInt(idade) } }, (error, response) => {
+                                if (error) {
+                                    console.error('Error updating player:', error);
+                                } else {
+                                    console.info('Player updated:', response);
+                                }
+                                menu();
+                            });
+                        });
+                    });
                 });
             });
             break;
@@ -123,7 +154,7 @@ function handleInput(option) {
             break;
 
         default:
-            console.log('Opção inválida. Tente novamente.');
+            console.error('Opção inválida. Tente novamente.');
             menu();
             break;
     }

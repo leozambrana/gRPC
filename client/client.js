@@ -28,6 +28,7 @@ function menu() {
     console.info('6: Deletar Time');
     console.info('7: Deletar Jogador');
     console.info('8: Atualizar Jogador');
+    console.info('9: Atualizar Time');
     console.info('0: Sair');
 }
 
@@ -149,6 +150,23 @@ function handleInput(option) {
                 });
             });
             break;
+        case '9':
+            rl.question('Digite o ID do time: ', (idTime) => {
+                rl.question('Digite o nome do time: ', (nome) => {
+                    rl.question('Digite os IDs dos jogadores (separados por vírgula):: ', (id_jogadores) => {
+                        const idJogador = id_jogadores.split(',').map(id_jogador => id_jogador.trim());
+
+                        client.AtualizarTime({ time: { id: idTime, nome, idJogador } }, (error, response) => {
+                            if (error) {
+                                console.error('Error updating team:', error);
+                            } else {
+                                console.info('Team updated:', response);
+                            }
+                            menu();
+                        });
+                    });
+                });
+            })
         case '0':
             rl.close();
             break;

@@ -67,6 +67,16 @@ message DeletarTimeResponse {
     string message = 1;
 }
 
+message AtualizarTimeRequest {
+    string id = 1;
+    string nome = 2;
+    repeated string jogadoresIds = 3;
+}
+
+message AtualizarTimeResponse {
+    repeated Time times = 1;
+}
+
 // Mensagem para listar todos os times
 message ListarTimesRequest {}
 
@@ -84,5 +94,6 @@ service TimeFutebol {
     rpc VincularJogador(VincularJogadorRequest) returns (VincularJogadorResponse);
     rpc ListarTimes(ListarTimesRequest) returns (ListarTimesResponse);
     rpc DeletarTime(DeletarTimeRequest) returns (DeletarTimeResponse);
+    rpc AtualizarTime(AtualizarTimeRequest) returns (AtualizarTimeResponse);
     rpc DeletarJogador(DeletarJogadorRequest) returns (DeletarJogadorResponse);
 }

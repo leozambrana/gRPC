@@ -56,9 +56,14 @@ function listarTimes(call, callback) {
     callback(null, { times: timesComNomes });
 }
 
+function atualizarTimes(call, callback) {
+    console.log('entrou aqui', call);
+}
+
 module.exports = {
     adicionarTime,
     vincularJogador,
     listarTimes,
     deletarTime,
+    atualizarTimes
 };

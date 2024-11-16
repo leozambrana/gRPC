@@ -10,7 +10,6 @@ function adicionarJogador(call, callback) {
 
 function atualizarJogador(call, callback) {
     const novoJogador = call.request.jogador;
-    console.log(novoJogador)
     const index = jogadores.findIndex(t => t.idJogador === novoJogador.idJogador);
     if (index !== -1) {
         jogadores.splice(index, 1);
@@ -22,7 +21,6 @@ function atualizarJogador(call, callback) {
             details: "Jogador não encontrado."
         });
     }
-    
 }
 
 // Implement the ListarJogadores method

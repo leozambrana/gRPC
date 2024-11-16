@@ -74,7 +74,7 @@ message AtualizarTimeRequest {
 }
 
 message AtualizarTimeResponse {
-    repeated Time times = 1;
+    Time times = 1;
 }
 
 // Mensagem para listar todos os times

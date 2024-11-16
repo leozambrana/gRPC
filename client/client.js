@@ -156,7 +156,7 @@ function handleInput(option) {
                     rl.question('Digite os IDs dos jogadores (separados por vírgula):: ', (id_jogadores) => {
                         const idJogador = id_jogadores.split(',').map(id_jogador => id_jogador.trim());
 
-                        client.AtualizarTime({ time: { id: idTime, nome, idJogador } }, (error, response) => {
+                        client.AtualizarTime({  id: idTime, nome, jogadoresIds:idJogador  }, (error, response) => {
                             if (error) {
                                 console.error('Error updating team:', error);
                             } else {
@@ -167,6 +167,7 @@ function handleInput(option) {
                     });
                 });
             })
+            break;
         case '0':
             rl.close();
             break;

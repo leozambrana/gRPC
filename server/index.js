@@ -19,7 +19,7 @@ server.addService(futebol.TimeFutebol.service, {
     VincularJogador: times.vincularJogador,
     ListarTimes: times.listarTimes,
     DeletarTime: times.deletarTime,
-    AtualizarTimes: times.atualizarTimes,
+    AtualizarTime: times.atualizarTimes,
     DeletarJogador: jogadores.deletarJogador,
     AtualizarJogador: jogadores.atualizarJogador,
 });

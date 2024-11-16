@@ -57,7 +57,21 @@ function listarTimes(call, callback) {
 }
 
 function atualizarTimes(call, callback) {
-    console.log('entrou aqui', call);
+    console.log('entrou aqui', call.request);
+    const id = call.request.id;
+    const nome = call.request.nome;
+    const jogadoresIds = call.request.jogadoresIds;
+    const index = times.findIndex(t => t.id === id);
+    if (index !== -1) {
+        times.splice(index, 1);
+        times.push({id,nome,jogadoresIds});
+        callback(null, {times:{id,nome,jogadoresIds}});
+    } else {
+        callback({
+            code: grpc.status.NOT_FOUND,
+            details: "Jogador não encontrado."
+        });
+    }
 }
 
 module.exports = {
